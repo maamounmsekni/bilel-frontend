@@ -1,0 +1,91 @@
+<div class="page">
+  <h2>Client Commandes</h2>
+
+  <div class="card">
+    <div class="row">
+      <input
+        [(ngModel)]="phoneSearch"
+        placeholder="Rechercher par téléphone"
+        (keyup.enter)="search()"
+      />
+
+      <button class="primary" (click)="search()">Rechercher</button>
+
+      <button (click)="toggleForm()">
+        {{ showForm ? 'Fermer' : 'Ajouter' }}
+      </button>
+
+      <button (click)="loadAll()">Tout afficher</button>
+    </div>
+
+    <div class="muted" *ngIf="loading">Chargement...</div>
+    <div class="error" *ngIf="error">{{ error }}</div>
+  </div>
+
+  <!-- Form -->
+  <div class="card" *ngIf="showForm">
+    <h3>{{ editingId ? 'Modifier' : 'Ajouter' }}</h3>
+
+    <div class="grid">
+      <input [(ngModel)]="form.client_name" placeholder="Nom client" />
+      <input [(ngModel)]="form.phone" placeholder="Téléphone" />
+      <input [(ngModel)]="form.address" placeholder="Adresse" />
+      <input type="date" [(ngModel)]="form.date" />
+      <input [(ngModel)]="form.commande" placeholder="Commande" />
+    </div>
+
+    <div class="row">
+      <button class="primary" (click)="submit()">
+        {{ editingId ? 'Sauvegarder' : 'Enregistrer' }}
+      </button>
+      <button (click)="cancel()">Annuler</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card">
+    <h3>Résultats</h3>
+
+    <p class="muted" *ngIf="rows.length === 0 && !loading">Aucun résultat.</p>
+
+    <div class="table-wrap" *ngIf="rows.length > 0">
+      <table class="table">
+        <colgroup>
+          <col style="width: 220px" />
+          <col style="width: 160px" />
+          <col style="width: 220px" />
+          <col style="width: 120px" />
+          <col />
+          <col style="width: 260px" />
+        </colgroup>
+
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Téléphone</th>
+            <th>Adresse</th>
+            <th>Date</th>
+            <th>Commande</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let r of rows">
+            <td>{{ r.client_name }}</td>
+            <td class="mono">{{ r.phone }}</td>
+            <td>{{ r.address }}</td>
+            <td class="nowrap">{{ r.date | date:'dd/MM/yyyy' }}</td>
+            <td class="repair">{{ r.commande }}</td>
+
+            <td class="actions">
+              <button class="success" (click)="addForSameClient(r)">Ajouter</button>
+              <button (click)="startEdit(r)">Edit</button>
+              <button class="danger" (click)="deleteRow(r)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

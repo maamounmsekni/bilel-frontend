@@ -1,0 +1,226 @@
+:host {
+  display: block;
+  width: 100%;
+  /* change this to your real phone header height if header is fixed */
+  --app-header-h: 56px;
+}
+
+/* IMPORTANT: force full viewport width even if parent is centered/max-width */
+.page {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  background: #fafafa;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  /* if you have a fixed header on phone, this prevents being hidden behind it */
+  padding: calc(18px + var(--app-header-h)) 22px 18px;
+
+  /* avoid horizontal scroll from 100vw rounding */
+  overflow-x: clip;
+}
+
+/* Better on modern mobile browsers (avoids scrollbar width issues) */
+@supports (width: 100dvw) {
+  .page {
+    width: 100dvw;
+    max-width: 100dvw;
+    margin-left: -50dvw;
+    margin-right: -50dvw;
+  }
+}
+
+/* Titles */
+h2 {
+  margin: 0 0 14px;
+  font-size: 24px;
+  font-weight: 800;
+}
+h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Cards */
+.card {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+/* Top row */
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.row input {
+  flex: 1 1 360px;
+  min-width: 0; /* prevent overflow on iPhone */
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  font-size: 16px; /* IMPORTANT: iPhone zoom fix */
+  box-sizing: border-box;
+}
+input:focus {
+  border-color: #9cc3ff;
+  box-shadow: 0 0 0 4px rgba(156, 195, 255, 0.35);
+}
+
+/* Form grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+/* Buttons */
+button {
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.06s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+  font-weight: 600;
+  font-size: 16px;     /* iPhone zoom fix */
+  min-height: 44px;    /* better tap target */
+}
+button:hover {
+  border-color: #cfcfcf;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+button:active { transform: translateY(1px); }
+
+button.primary {
+  border-color: #bcd6ff;
+  background: linear-gradient(180deg, #f3f8ff, #e7f1ff);
+}
+button.danger {
+  border-color: #ffc2c2;
+  background: linear-gradient(180deg, #fff6f6, #ffecec);
+}
+button.success {
+  border-color: #b9f3c7;
+  background: linear-gradient(180deg, #f0fff4, #dcffe6);
+}
+
+/* Messages */
+.muted { color: #666; margin-top: 8px; }
+.error { color: #b00020; margin-top: 8px; }
+
+/* Table wrap */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  background: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  min-width: 1000px; /* keep scroll on phone */
+}
+
+/* Header */
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f7f7f9;
+  border-bottom: 1px solid #eee;
+}
+
+/* Cells */
+.table th, .table td {
+  padding: 16px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #f0f0f0;
+  box-sizing: border-box;
+}
+
+.table th {
+  font-size: 12px;
+  color: #6b7280;
+  letter-spacing: 0.3px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.table tbody tr:hover td { background: #fbfdff; }
+
+td.repair {
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+}
+
+.nowrap { white-space: nowrap; }
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap; /* allow wrap on phone */
+  align-items: center;
+}
+.table .actions button {
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  min-height: 40px;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+}
+
+/* iPhone 8 specifically (<= 375px wide) */
+@media (max-width: 420px) {
+  .page {
+    padding: calc(12px + var(--app-header-h)) 12px 12px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Buttons layout on iPhone */
+  .row button {
+    flex: 1 1 calc(50% - 6px);
+  }
+}
