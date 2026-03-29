@@ -9,7 +9,7 @@ import { CommandeCreate, CommandeOut } from '../../core/models/commande.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './historique.page.html',
-  styleUrl: './historique.page.css',
+  styleUrls: ['./historique.page.css'],
 })
 export class HistoriquePage implements OnInit {
   phoneSearch = '';
@@ -92,7 +92,7 @@ export class HistoriquePage implements OnInit {
 
   addForSameClient(r: CommandeOut) {
     this.showForm = true;
-    this.editingId = null; // create mode
+    this.editingId = null;
 
     this.form = {
       client_name: r.client_name,
@@ -144,7 +144,7 @@ export class HistoriquePage implements OnInit {
         next: () => {
           this.loading = false;
           this.cancel();
-          this.search(); // no forced phone
+          this.search();
         },
         error: (e) => {
           this.loading = false;
@@ -158,7 +158,7 @@ export class HistoriquePage implements OnInit {
       next: () => {
         this.loading = false;
         this.cancel();
-        this.search(); // refresh list
+        this.search();
       },
       error: (e) => {
         this.loading = false;
