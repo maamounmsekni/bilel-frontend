@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'http://localhost:8000',
+  apiBaseUrl: 'https://bilel-backend.onrender.com',
 };
